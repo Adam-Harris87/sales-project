@@ -10,10 +10,10 @@ def acquire_mob_sales():
     order history for customers
     '''
     # get sales order history for customers
-    sales = retention_18 = pd.read_excel('Retention Grid.xlsm', sheet_name=18)
-    sorder_details = raw_6 = pd.read_excel('Raw Forecast v2.xlsm', sheet_name=6)
+    sales = retention_18 = pd.read_excel('mob_sales.xlsx', sheet_name=0)
+    sorder_details = raw_6 = pd.read_excel('mob_sales.xlsx', sheet_name=1)
     # get a customer list
-    customer_list = retention_17 = pd.read_excel('Retention Grid.xlsm', sheet_name=17)
+    customer_list = retention_17 = pd.read_excel('mob_sales.xlsx', sheet_name=3)
     # return the 4 dataframes
     return sales, sorder_details, customer_list
 
@@ -25,7 +25,7 @@ def acquire_mob_item_history():
     item sales history by week for all products
     '''
     # get item sales history
-    item_sales = pd.read_excel('Sales Forecast.xlsm', sheet_name=1)
+    item_sales = pd.read_excel('mob_sales.xlsx', sheet_name=2)
     # return dataframe
     return item_sales
 
@@ -40,7 +40,7 @@ def prepare_mob_item_history(all_sales_history):
     # remove items that are inactive products
     sales_history = all_sales_history[all_sales_history.Forecast == True
                   # remove unnecessary columns
-                 ].drop(columns=['Lifetime', 'Desc', 'Forecast'
+                 ].drop(columns=['Lifetime', 'Forecast'
                                  # remove extra columns that have no data
                                 ]).dropna(axis=1
                                           # change the column headers to item_sku

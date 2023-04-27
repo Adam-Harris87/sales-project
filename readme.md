@@ -2,7 +2,7 @@
 
 
 # Project Description Describes what your project is and why it is important
-
+RFM - Recency, Frequency, Monetary Value
 
 # Project Goal Clearly states what your project sets out to do and how the information gained can be applied to the real world
 

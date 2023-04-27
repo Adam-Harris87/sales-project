@@ -84,6 +84,8 @@ def prepare_mob_sales_order(sales, sorder_details, customer_list):
     sorders = sorders[sorders.Suspended.isna() == False].drop(columns='Suspended')
     # change column names to lowercase
     sorders.columns = [col.lower() for col in sorders]
+    # make sure the order dates are in datetime format
+    sorders.index = pd.to_datetime(sorders.index, format='%Y-%m-%d')
     # set the index to the orderdate so we can work with the data as a time series problem
     sorders = sorders.set_index('orderdate').sort_index()
     # remove the one row that has decimal qty ordered and qty_shipped
@@ -109,7 +111,7 @@ def wrangle_mob_item_sales():
     # check for existance of item_history.csv file in the local directory
     if os.path.exists('item_history.csv'):
         # read in csv file if one exists
-        item_history = pd.read_csv('item_history.csv', index_col=0)
+        item_history = pd.read_csv('item_history.csv', index_col=0, parse_dates=True)
     # if csv file does not exist
     else:
         # read in dataset from excel file
@@ -132,7 +134,7 @@ def wrangle_mob_sales():
     # check for existance of item_history.csv file in the local directory
     if os.path.exists('sales_history.csv'):
         # read in csv file if one exists
-        sales = pd.read_csv('sales_history.csv', index_col=0)
+        sales = pd.read_csv('sales_history.csv', index_col=0, parse_dates=True)
     # if csv file does not exist
     else:
         # read in dataset from excel file
